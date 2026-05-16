@@ -140,6 +140,16 @@ ON s.student_id = e.student_id;
 |          6 | Fiona Green   |      NULL | NULL            |
 +------------+---------------+-----------+-----------------+
 
+--or
+SELECT
+    s.student_id,
+    s.student_name,
+    e.course_id,
+    e.enrollment_date
+FROM students s
+FULL OUTER JOIN enrollments e
+    ON s.student_id = e.student_id;
+
   
 --8. Find all courses that have never appeared in the enrollments table.
 SELECT
@@ -159,7 +169,8 @@ WHERE e.course_id IS NULL;
 
   
 --9.Display all instructors and courses using a FULL OUTER JOIN and identify unmatched rows.
-SELECT
+ using MySQL
+    SELECT
     i.instructor_id,
     i.instructor_name,
     c.course_id,
@@ -185,6 +196,18 @@ WHERE i.instructor_id IS NULL;
 |          NULL | NULL            |       103 | Data Analytics   |
 |          NULL | NULL            |       105 | Machine Learning |
 +---------------+-----------------+-----------+------------------+
+
+    --or(using PostgreSQL)
+SELECT
+    i.instructor_id,
+    i.instructor_name,
+    c.course_id,
+    c.course_name
+FROM instructors i
+FULL OUTER JOIN courses c
+    ON i.instructor_id = c.instructor_id
+WHERE i.instructor_id IS NULL
+   OR c.instructor_id IS NULL;
 
   
 --10.Create a report showing: student name, course name, and instructor name. Include rows even if course or
