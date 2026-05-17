@@ -1,0 +1,101 @@
+Week 2 - Day 3: Advanced Joins & Set Operations
+
+This worksheet contains table schemas, mock data, and 30 practice questions covering multi-table relationships, self-joins, emulating FULL OUTER JOIN in MySQL, set operations, and aggregation across joined tables.
+
+--------------------------------------------------------------------------------
+Table Schemas:
+--------------------------------------------------------------------------------
+
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    manager_id INT,
+    dept_id INT,
+    salary DECIMAL(10,2)
+);
+
+CREATE TABLE projects (
+    project_id INT PRIMARY KEY,
+    project_name VARCHAR(50),
+    emp_id INT
+);
+
+CREATE TABLE employee_contacts (
+    emp_id INT PRIMARY KEY,
+    phone VARCHAR(20),
+    email VARCHAR(50)
+);
+
+--------------------------------------------------------------------------------
+Sample Data:
+--------------------------------------------------------------------------------
+
+INSERT INTO departments (dept_id, dept_name) VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Finance'),
+(4, 'Marketing'),
+(5, 'Sales');
+
+INSERT INTO employees (emp_id, emp_name, manager_id, dept_id, salary) VALUES
+(1, 'Karthik', NULL, 1, 95000.00),
+(2, 'Ajay', 1, 1, 75000.00),
+(3, 'Vijay', 1, 2, 85000.00),
+(4, 'Vinay', 2, 2, 60000.00),
+(5, 'Meena', 3, 3, 50000.00),
+(6, 'Veer', NULL, 4, NULL),
+(7, 'Keerthi', 4, 5, 45000.00),
+(8, 'Priya', 4, 5, NULL);
+
+INSERT INTO projects (project_id, project_name, emp_id) VALUES
+(1, 'Project A', 1),
+(2, 'Project B', 2),
+(3, 'Project C', 3),
+(4, 'Project D', 4),
+(5, 'Project E', 5);
+
+INSERT INTO employee_contacts (emp_id, phone, email) VALUES
+(1, '9876543210', 'karthik@company.com'),
+(2, '8765432109', 'ajay@company.com'),
+(3, '7654321098', 'vijay@company.com'),
+(5, '6543210987', 'meena@company.com');
+
+--------------------------------------------------------------------------------
+Practice Questions:
+--------------------------------------------------------------------------------
+
+Question 1: Retrieve employee names and their managers, including employees without managers.
+Question 2: Display all employees and their departments, showing employees even if they don't belong to any department.
+Question 3: List employee names and their managers' names, displaying only those who report to a manager.
+Question 4: Find the total salary paid to each department, including departments with no employees.
+Question 5: Display employees who do not belong to any department.
+Question 6: Fetch employee names and their assigned projects. Show NULL for the project if they have no assignments.
+Question 7: List all employees who have completed at least one project, showing employee and project names.
+Question 8: Show employees and projects, ensuring no project is omitted even if no employee is assigned to it.
+Question 9: Find all employees and their salaries, displaying NULL for salary if there is no salary record.
+Question 10: Retrieve employee names and department names, including employees not assigned to a department.
+Question 11: Find all department names and their employees, including departments with no employees.
+Question 12: List all employees and their contact information, including employees without contact records.
+Question 13: Show employee names and department names, including employees without departments and departments without employees.
+Question 14: Find employees who have not been assigned any project, along with project details where applicable.
+Question 15: Retrieve employee names and their projects, including employees not working on any project.
+Question 16: List all projects and the employees assigned to them, including projects with no employees.
+Question 17: Show employee names, their managers' names, and their project names (for employees who have both a manager and a project).
+Question 18: List employee names and their department names, excluding employees without a department.
+Question 19: Find employees who belong to the same department as Vijay (exclude Vijay from the list).
+Question 20: List all department names and their employee counts, ensuring departments with no employees are included.
+Question 21: Retrieve employees who have worked on a project but do not belong to a department, showing employee name and project.
+Question 22: Find the total number of employees in each department, ensuring empty departments are listed with a count of 0.
+Question 23: Show employees and managers, displaying only those where both report to a manager, excluding manager-less entries.
+Question 24: Display all employee names along with their managers' names, using 'CEO' if the manager is NULL.
+Question 25: Find departments and their average salaries, including departments with no employees (display as 0).
+Question 26: List all employees, their department names, and their project names, including employees without departments or projects.
+Question 27: Show a list of employees who do not have any corresponding salary records (salary is NULL).
+Question 28: Retrieve employee names and their projects, including projects not assigned to anyone and employees not assigned to any projects.
+Question 29: List all employees, their department names, project names, and emails, showing complete details even if some relationships are missing.
+Question 30: Display employees who belong to a department, along with the department name, but include employees without departments as well.
