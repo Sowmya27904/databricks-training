@@ -1,0 +1,465 @@
+Week 2 - Day 1: SQL Master Assignment
+
+This worksheet contains 15 SQL case studies designed to test comprehensive query writing skills, including string operations, numeric calculations, date manipulation, and conditional branching (CASE WHEN).
+
+--------------------------------------------------------------------------------
+CASE STUDY 1: Employee Compensation and Experience Classification
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE employee_payments (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(30),
+    base_salary DECIMAL(10,2),
+    bonus DECIMAL(10,2),
+    joining_date DATE
+);
+
+Sample Data:
+INSERT INTO employee_payments VALUES
+(1, 'karthik', 'Data', 75000.75, 5000.50, '2019-03-15'),
+(2, 'veena', 'HR', 65000.40, 4000.25, '2021-06-20'),
+(3, 'ravi', 'Data', 85000.90, 6000.75, '2016-01-10'),
+(4, 'anil', 'Finance', 70000.10, NULL, '2020-09-01'),
+(5, 'suresh', 'HR', 60000.55, 3000.30, '2022-11-25');
+
+Requirements:
+Write a query to display:
+1. Employee name in Proper Case (first letter capitalized, rest lowercase).
+2. Total income (base salary + bonus). If bonus is NULL, treat it as 0.
+3. Total income rounded to the nearest whole integer.
+4. Joining year extracted from the joining date.
+5. Experience rank using CASE WHEN:
+   - 'Senior' if experience > 7 years.
+   - 'Mid' if experience is between 4 and 7 years (inclusive).
+   - 'Junior' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 2: Order Delivery Delay Audit
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE orders_delivery (
+    order_id INT,
+    customer_name VARCHAR(50),
+    order_date DATE,
+    delivery_date DATE,
+    order_amount DECIMAL(10,2)
+);
+
+Sample Data:
+INSERT INTO orders_delivery VALUES
+(101, 'rajesh', '2025-01-01', '2025-01-05', 12500.75),
+(102, 'meena', '2025-01-10', '2025-01-10', 8400.40),
+(103, 'arun', '2025-01-15', '2025-01-20', 15600.90),
+(104, 'pooja', '2025-01-18', NULL, 9200.10);
+
+Requirements:
+Write a query to display:
+1. Customer name in all uppercase.
+2. Delivery days taken (difference in days between delivery_date and order_date).
+3. If delivery_date is NULL, replace it with the current date to calculate the pending days.
+4. Order amount truncated to 1 decimal place.
+5. Shipping status classification using CASE WHEN:
+   - 'Same-day' if delivery days is 0.
+   - 'Delayed' if delivery days > 3 days.
+   - 'Pending' if delivery_date is NULL.
+   - 'On-time' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 3: Customer Spending and Tier Categorization
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE customer_spending (
+    cust_id INT,
+    cust_name VARCHAR(50),
+    city VARCHAR(30),
+    purchase_amount DECIMAL(10,2),
+    purchase_date DATE
+);
+
+Sample Data:
+INSERT INTO customer_spending VALUES
+(1, 'amit', 'mumbai', 12000.75, '2024-12-01'),
+(2, 'neha', 'delhi', 8500.40, '2024-12-15'),
+(3, 'rohit', 'mumbai', -15500.90, '2024-11-20'),
+(4, 'kavya', 'chennai', 6000.10, '2024-10-05');
+
+Requirements:
+Write an audit query to display:
+1. Customer name in Proper Case.
+2. Full English name of the purchase month.
+3. Purchase amount rounded to the nearest integer.
+4. Absolute value of purchase amount (to correct any negative data entry errors).
+5. Customer tier based on absolute spending:
+   - 'High Spender' if spending > 15,000.
+   - 'Medium Spender' if spending is between 8,000 and 15,000 (inclusive).
+   - 'Low Spender' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 4: Subscription Validity and Renewal Risk
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE subscriptions (
+    user_id INT,
+    user_email VARCHAR(100),
+    start_date DATE,
+    end_date DATE,
+    subscription_fee DECIMAL(10,2)
+);
+
+Sample Data:
+INSERT INTO subscriptions VALUES
+(1, 'karthik@gmail.com', '2024-01-01', '2025-01-01', 12000.50),
+(2, 'veena@yahoo.com', '2024-06-15', '2024-12-15', 8500.75),
+(3, 'ravi@hotmail.com', '2023-03-01', '2024-03-01', 15000.90);
+
+Requirements:
+Write a query to display:
+1. Email domain extracted from user_email (e.g. 'gmail.com').
+2. Subscription duration in months.
+3. Subscription fee formatted with commas and 2 decimal places.
+4. Remaining days until subscription ends relative to current date.
+5. Active subscription status:
+   - 'Expired' if end_date is in the past.
+   - 'Expiring Soon' if remaining days is between 0 and 30 days.
+   - 'Active' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 5: Loan EMI Risk Categorization
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE loan_details (
+    loan_id INT,
+    customer_name VARCHAR(50),
+    loan_amount DECIMAL(12,2),
+    interest_rate DECIMAL(5,2),
+    loan_start DATE
+);
+
+Sample Data:
+INSERT INTO loan_details VALUES
+(201, 'suresh', 500000.75, 8.5, '2022-01-10'),
+(202, 'mahesh', 750000.40, 9.2, '2021-05-20'),
+(203, 'anita', 300000.90, 7.8, '2023-07-01');
+
+Requirements:
+Write a query to determine:
+1. Approximate compounding scale of loan interest over 5 years: POWER((1 + interest_rate/100), 5).
+2. Age of the loan in years (difference between loan_start and current date).
+3. Customer name in uppercase.
+4. Interest risk tier:
+   - 'High Interest' if interest_rate > 9%.
+   - 'Moderate Interest' if interest_rate is between 8% and 9% (inclusive).
+   - 'Low Interest' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 6: Tax Shock and Revision Audit
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE salary_audit (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,2),
+    tax_percent DECIMAL(5,2),
+    last_revision DATE
+);
+
+Sample Data:
+INSERT INTO salary_audit VALUES
+(1, 'karthik', 75000.75, 10.5, '2022-01-15'),
+(2, 'veena', 65000.40, 18.0, '2023-06-01'),
+(3, 'ravi', 85000.90, 25.0, '2020-11-20');
+
+Requirements:
+Write an audit query displaying:
+1. Employee name in all lowercase.
+2. Net salary after tax deductions (salary * (1 - tax_percent/100)) rounded to the nearest integer.
+3. Last revision year.
+4. Exact number of months passed since last salary revision.
+5. Audit flag using CASE WHEN:
+   - 'Flag Tax Shock' if tax_percent > 20% AND months since revision exceeds 24.
+   - 'Flag Review Needed' if tax_percent is between 15% and 20% (inclusive).
+   - 'Stable' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 7: Bonus Abuse Detection
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE bonus_monitor (
+    emp_code INT,
+    emp_name VARCHAR(50),
+    base_salary DECIMAL(10,2),
+    bonus DECIMAL(10,2),
+    bonus_date DATE
+);
+
+Sample Data:
+INSERT INTO bonus_monitor VALUES
+(101, 'Anil', 70000.10, 30000.00, '2025-01-11'), -- Sunday
+(102, 'Suresh', 60000.55, 3000.30, '2024-03-15'), -- Friday
+(103, 'Ravi', 85000.90, 15000.75, '2023-12-01');
+
+Requirements:
+Write a transaction safety query showing:
+1. Employee name in Proper Case.
+2. Bonus percentage of base_salary rounded to 2 decimal places.
+3. English name of weekday on which bonus was credited.
+4. Absolute difference between base_salary and bonus.
+5. Safety flag using CASE WHEN:
+   - 'Suspicious Transaction' if bonus percentage > 30% AND credit day falls on weekend (Saturday/Sunday).
+   - 'Compliant Regular' if bonus percentage <= 20%.
+   - 'Audit Needed' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 8: Experience Parity Validation
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE employee_experience (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    joining_date DATE,
+    declared_experience INT,
+    salary DECIMAL(10,2)
+);
+
+Sample Data:
+INSERT INTO employee_experience VALUES
+(1, 'Veena', '2018-07-01', 4, 65000.40),
+(2, 'Ravi', '2014-01-10', 12, 85000.90),
+(3, 'Anil', '2020-09-01', 3, 70000.10);
+
+Requirements:
+Write a query to audit resume experience:
+1. Employee name in uppercase.
+2. Calculated actual experience in years spent with the company (joining_date to current date).
+3. Difference in years between declared experience and actual experience.
+4. Salary rounded downwards to next lowest integer (using FLOOR).
+5. Validation status:
+   - 'Overstated Resume' if declared > actual.
+   - 'Understated Resume' if declared < actual.
+   - 'Fully Verified' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 9: Odd-Even Salary Compliance
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE payroll_control (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,2),
+    payment_date DATE
+);
+
+Sample Data:
+INSERT INTO payroll_control VALUES
+(1, 'Ravi', 85000.90, '2025-01-15'), -- Odd day
+(2, 'Anil', 70000.10, '2025-01-16'), -- Even day
+(3, 'Veena', 65000.40, '2025-01-17'); -- Odd day
+
+Requirements:
+Write a query to check odd-even payroll compliance:
+1. Employee name in lowercase.
+2. Day of the month of the payment.
+3. Salary rounded to nearest integer.
+4. Remainder (MOD) when rounded salary is divided by 2.
+5. Compliance flag:
+   - 'Compliance Violation' if even salary paid on odd day of month, or odd salary paid on even day of month.
+   - 'Compliant Payroll' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 10: Salary Increment Simulation
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE salary_revision (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    current_salary DECIMAL(10,2),
+    rating INT,
+    last_hike DATE
+);
+
+Sample Data:
+INSERT INTO salary_revision VALUES
+(1, 'karthik', 75000.75, 5, '2023-01-01'),
+(2, 'veena', 65000.40, 4, '2024-01-01'),
+(3, 'ravi', 85000.90, 2, '2022-01-01');
+
+Requirements:
+Simulate next year's corporate salary budget displaying:
+1. Years elapsed since last hike.
+2. Rating-dependent increment percentage:
+   - 15% increment if rating is 5.
+   - 10% increment if rating is 4.
+   - 5% increment if rating is 3.
+   - 0% increment otherwise.
+3. Projected new salary rounded to nearest integer.
+4. Employee name in lowercase.
+5. Budget growth tier:
+   - 'High Growth' if rating >= 4.
+   - 'Medium Growth' if rating = 3.
+   - 'Stagnant' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 11: Weekend Credit Fraud Audit
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE salary_credit_audit (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,2),
+    credit_date DATE,
+    bank_code VARCHAR(10)
+);
+
+Sample Data:
+INSERT INTO salary_credit_audit VALUES
+(1, 'Karthik', 75000.75, '2025-01-04', 'HDFC01'), -- Saturday
+(2, 'Veena', 65000.40, '2025-01-06', 'ICIC02'),   -- Monday
+(3, 'Ravi', 85000.90, '2025-01-05', 'SBIN03'),    -- Sunday
+(4, 'Anil', 70000.10, '2025-01-07', 'AXIS04'),    -- Tuesday
+(5, 'Suresh', 60000.55, '2025-01-11', 'HDFC01');  -- Saturday
+
+Requirements:
+Write a security query showing:
+1. 4-character bank prefix extracted from bank_code (e.g. 'HDFC').
+2. Weekday name of credit_date.
+3. Rounded salary.
+4. Remainder (MOD) when rounded salary is divided by 5.
+5. Security flag:
+   - 'Weekend Fraud Risk' if credit date is weekend (Saturday/Sunday) AND rounded salary MOD 5 = 0.
+   - 'Bank Review Required' if bank prefix is 'HDFC' AND credit day is Saturday.
+   - 'Secure Transaction' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 12: Salary Decimal Precision Loss Audit
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE salary_precision (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,4),
+    record_date DATE
+);
+
+Sample Data:
+INSERT INTO salary_precision VALUES
+(1, 'Karthik', 75000.7567, '2025-01-01'),
+(2, 'Veena', 65000.4044, '2025-01-02'),
+(3, 'Ravi', 85000.9099, '2025-01-03'),
+(4, 'Anil', 70000.1001, '2025-01-04'),
+(5, 'Suresh', 60000.5555, '2025-01-05');
+
+Requirements:
+Write an audit query displaying:
+1. Salary truncated to exactly 2 decimal places.
+2. Absolute difference between rounded salary (to 2 decimals) and truncated salary (to 2 decimals).
+3. English weekday name of record_date.
+4. Character length of employee name.
+5. Precision audit flag:
+   - 'High Precision Leak' if absolute difference > 0.005.
+   - 'Safe Precision' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 13: Employee Login Discipline and Performance
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE employee_login (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    login_time DATETIME,
+    logout_time DATETIME
+);
+
+Sample Data:
+INSERT INTO employee_login VALUES
+(1, 'Karthik', '2025-01-15 09:05:00', '2025-01-15 18:10:00'),
+(2, 'Veena', '2025-01-14 10:30:00', '2025-01-14 16:00:00'),
+(3, 'Ravi', '2025-01-13 09:00:00', '2025-01-13 20:00:00'),
+(4, 'Anil', '2025-01-12 11:00:00', '2025-01-12 14:00:00'),
+(5, 'Suresh', '2025-01-11 09:15:00', '2025-01-11 17:00:00');
+
+Requirements:
+Write a performance query displaying:
+1. Employee name in Proper Case.
+2. Indicator identifying login date as 'Weekday' or 'Weekend'.
+3. Total working duration in hours and decimals, rounded to 2 decimal places.
+4. Discipline status:
+   - 'Excellent Performer' if weekday AND working hours >= 8.
+   - 'Underperformer' if weekday AND working hours < 6.
+   - 'Weekend Support' if weekend login.
+   - 'Standard Compliance' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 14: Weekend Work Abuse Detection
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE weekend_monitor (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    work_date DATE,
+    login_time TIME,
+    logout_time TIME
+);
+
+Sample Data:
+INSERT INTO weekend_monitor VALUES
+(1, 'Ravi', '2025-01-11', '09:00:00', '21:00:00'),
+(2, 'Veena', '2025-01-12', '10:00:00', '13:00:00'),
+(3, 'Karthik', '2025-01-10', '09:00:00', '18:00:00'),
+(4, 'Anil', '2025-01-09', '11:00:00', '14:00:00');
+
+Requirements:
+Write a security query displaying:
+1. English day name of work_date.
+2. Employee name in lowercase.
+3. Hours worked.
+4. Hours worked rounded upwards to nearest integer (using CEIL).
+5. Weekend login flag:
+   - 'Weekend Overtime Approved' if weekend AND hours worked >= 8.
+   - 'Unapproved Weekend Access' if weekend AND hours worked < 4.
+   - 'Regular Business Hours' otherwise.
+
+--------------------------------------------------------------------------------
+CASE STUDY 15: Absenteeism vs Performance Correlation
+--------------------------------------------------------------------------------
+
+Table Schema:
+CREATE TABLE performance_tracker (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    work_date DATE,
+    login_time TIME,
+    logout_time TIME
+);
+
+Sample Data:
+INSERT INTO performance_tracker VALUES
+(1, 'Karthik', '2025-01-09', '09:00:00', '18:00:00'),
+(2, 'Karthik', '2025-01-10', '09:10:00', '17:50:00'),
+(3, 'Veena', '2025-01-05', '10:00:00', '15:00:00'),
+(4, 'Ravi', '2025-01-14', '09:00:00', '19:00:00'),
+(5, 'Anil', '2025-01-03', '11:00:00', '14:00:00');
+
+Requirements:
+Write an audit query displaying:
+1. Threshold status: 'Active Threshold' if work_date is between '2025-01-08' and '2025-01-15', 'Stale Threshold' otherwise.
+2. Day type: 'Weekday' or 'Weekend'.
+3. Hours worked rounded down to next lowest integer (using FLOOR).
+4. Performance index:
+   - 'Consistent Performer' if Active Threshold AND weekday AND hours worked >= 8.
+   - 'Irregular Attendance' if hours worked < 6.
+   - 'Historical Record' otherwise.
