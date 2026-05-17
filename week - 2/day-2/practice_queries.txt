@@ -1,0 +1,81 @@
+Week 2 - Day 2: Date & Timestamp Manipulations
+
+This worksheet contains table schemas, mock data, and practice questions for executing temporal queries, formatting dates, calculating time differences, and handling custom business calendar logics.
+
+--------------------------------------------------------------------------------
+Table Schema:
+--------------------------------------------------------------------------------
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    order_date DATE,
+    order_timestamp TIMESTAMP,
+    delivery_date DATE,
+    order_amount DECIMAL(10,2)
+);
+
+--------------------------------------------------------------------------------
+Sample Data:
+--------------------------------------------------------------------------------
+INSERT INTO orders VALUES
+(1, 'Karthik', '2024-01-15', '2024-01-15 10:30:45', '2024-01-20', 2500.00),
+(2, 'Veena', '2024-02-18', '2024-02-18 18:45:20', '2024-02-22', 3200.50),
+(3, 'Ravi', '2024-03-02', '2024-03-02 09:15:10', '2024-03-08', 4100.75),
+(4, 'Anil', '2024-03-09', '2024-03-09 14:05:55', '2024-03-15', 1800.00),
+(5, 'Suresh', '2024-01-07', '2024-01-07 23:55:00', '2024-01-12', 2900.00);
+
+--------------------------------------------------------------------------------
+Practice Questions:
+--------------------------------------------------------------------------------
+
+Question 1: Server Curtime Checks
+Write a query to retrieve the current system date (in YYYY-MM-DD), current system time (in HH:MM:SS), and full timestamp of your server.
+
+Question 2: Date Slicing
+Extract the year, numeric month, and day of the month as separate integer columns from the order_date of each order.
+
+Question 3: Standard SQL Extractions
+Use the standard SQL EXTRACT() function to retrieve the year, month, and day from the order_date.
+
+Question 4: Retrieve Names
+Display each order's ID, order_date, the full English name of the month, and the full English name of the weekday on which it was placed.
+
+Question 5: Weekday Indices
+For each order, retrieve both:
+- The WEEKDAY() value (where Monday = 0, Sunday = 6)
+- The DAYOFWEEK() value (where Sunday = 1, Saturday = 7)
+
+Question 6: Identify Weekend Orders (Day Names)
+Retrieve all orders that were placed on a weekend (Saturday or Sunday) using the DAYNAME() function.
+
+Question 7: Identify Weekend Orders (Day Indices)
+Retrieve all orders that were placed on a weekend (Saturday or Sunday) using the numeric index function DAYOFWEEK().
+
+Question 8: Retrieve Weekday Orders
+Retrieve all orders that were placed on standard business weekdays (Monday to Friday) using the DAYOFWEEK() function.
+
+Question 9: Date Arithmetic (Add Days)
+Calculate a projected delivery date for each order by adding exactly 5 days to the order_date using DATE_ADD().
+
+Question 10: Date Arithmetic (Subtract Days)
+Calculate a date that is exactly 3 days prior to the order_date of each order using DATE_SUB().
+
+Question 11: Deliveries Duration
+Compute the exact difference in days between delivery_date and order_date for each record using DATEDIFF().
+
+Question 12: Month End Calculations
+Determine the last day of the month for each order_date using the LAST_DAY() function.
+
+Question 13: Month Start Calculations
+Write a query to calculate the first day of the month for each order_date (e.g. '2024-01-15' should yield '2024-01-01').
+
+Question 14: Date Formatting
+Retrieve each order and format the order_date in two ways:
+- Format A: 'DD-MM-YYYY' (e.g. '15-01-2024')
+- Format B: 'Month_Name DD, YYYY' (e.g. 'January 15, 2024')
+
+Question 15: Convert String to Date
+Convert the literal string '15-01-2024' (formatted as DD-MM-YYYY) into a valid Date object.
+
+Question 16: Financial Year Logic
+Write a query to determine the Financial Year (running April 1 to March 31) for each order_date. For example, '2024-01-15' falls under '2023-2024', whereas '2024-05-18' yields '2024-2025'.
