@@ -1,0 +1,78 @@
+Week 2 - Day 6: String Functions in MySQL
+
+This worksheet contains table schemas, mock data, and practice questions for executing string operations, casing adjustments, whitespaces cleanup, substring indices, search position matching, and sets checks.
+
+--------------------------------------------------------------------------------
+Table Schema:
+--------------------------------------------------------------------------------
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    full_name VARCHAR(100),
+    email VARCHAR(100),
+    department VARCHAR(50),
+    city VARCHAR(50),
+    salary VARCHAR(20),
+    remarks VARCHAR(200)
+);
+
+--------------------------------------------------------------------------------
+Sample Data:
+--------------------------------------------------------------------------------
+INSERT INTO employees VALUES
+(1, 'Karthik Kondpak', 'karthik.k@gmail.com', 'Data Engineering', 'Hyderabad', '75000', ' Top performer '),
+(2, 'Veena Reddy', 'veena_r@company.com', 'Analytics', 'Bangalore', '65000', 'Excellent communication'),
+(3, 'Ravi kumar', 'ravi.kumar@org.in', 'Data Science', 'Chennai', '85000', 'Needs improvement'),
+(4, 'Anil', 'anil@abc.com', 'DEVOPS', 'Pune', '70000', NULL),
+(5, ' Suresh ', 'suresh@xyz.com', 'data engineering', ' hyderabad ', '60000', ' ');
+
+--------------------------------------------------------------------------------
+Practice Questions:
+--------------------------------------------------------------------------------
+
+Question 1: Length of Name
+Retrieve the character length of each employee's full name.
+
+Question 2: Convert Case
+Convert all department names to uppercase and all city names to lowercase.
+
+Question 3: Clean Whitespaces
+Clean the full_name column by removing any leading or trailing spaces.
+
+Question 4: Combine Column Values (CONCAT)
+Combine full name and department into a single column named emp_details formatted as: "Name [Department]" (e.g. "Karthik Kondpak [Data Engineering]").
+
+Question 5: Combine with Separator (CONCAT_WS)
+Create a unified string of emp_id, full_name, and city separated by a double hyphen (" -- ") for each employee.
+
+Question 6: Extract Email Prefix (SUBSTRING)
+Extract the first 5 characters of each employee's email address.
+
+Question 7: Left and Right Extract
+Retrieve the first 4 characters of each employee's full name, and the last 3 characters of their city.
+
+Question 8: Locate Character (INSTR)
+Find the exact numeric position of the '@' symbol in each email address.
+
+Question 9: Locate Dot (LOCATE)
+Find the numeric position of the first dot ('.') in each employee's email address.
+
+Question 10: Replace Substrings
+Replace the word 'Data' in the department column with the word 'Big Data' (ensure case sensitivity is handled).
+
+Question 11: Reverse Characters
+Reverse the full name of each employee.
+
+Question 12: Left Padding (LPAD)
+Pad the employee ID on the left with zeroes ('0') so that each ID is exactly 5 characters long.
+
+Question 13: Remove Internal Spaces
+Clean the city column by removing ALL spaces (both outer spaces and internal spaces).
+
+Question 14: Handle Null Remarks (IFNULL)
+Display each employee's name and their remarks. If remarks is NULL, display 'No remarks'.
+
+Question 15: Handle Null Remarks (COALESCE)
+Retrieve employee name and remarks, using COALESCE to display 'N/A' if remarks is NULL or empty spaces.
+
+Question 16: Find in Comma-Separated List (FIND_IN_SET)
+Write a query to locate the position of 'Analytics' within the comma-separated string 'Data Science,Analytics,Data Engineering,DevOps'.
